@@ -90,7 +90,7 @@ func (h *Handler) registerRoutes() {
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Apply trailing slash middleware to the entire mux to normalize requests
 	// before they reach the router, preventing unwanted redirects.
-	trailingSlashMiddleware := middleware.TrailingSlash()
+	trailingSlashMiddleware := middleware.TrailingSlash(h.endpoints)
 	handler := trailingSlashMiddleware(h.mux)
 
 	handler.ServeHTTP(w, r)
